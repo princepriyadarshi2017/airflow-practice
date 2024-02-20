@@ -8,3 +8,9 @@
 
 
 # 
+
+
+
+# How to extract data from api
+## Configure Airflow for commnication with rest API's
+### Step 1 :- Go to admin connection and then and then on +sign add new connection then connection Type is HTTP provider

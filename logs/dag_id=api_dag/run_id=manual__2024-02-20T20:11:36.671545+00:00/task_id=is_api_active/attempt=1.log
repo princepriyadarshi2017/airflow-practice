@@ -1,0 +1,35 @@
+[2024-02-20T20:11:38.211+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: api_dag.is_api_active manual__2024-02-20T20:11:36.671545+00:00 [queued]>
+[2024-02-20T20:11:38.215+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: api_dag.is_api_active manual__2024-02-20T20:11:36.671545+00:00 [queued]>
+[2024-02-20T20:11:38.215+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 1
+[2024-02-20T20:11:38.223+0000] {taskinstance.py:2191} INFO - Executing <Task(HttpSensor): is_api_active> on 2024-02-20 20:11:36.671545+00:00
+[2024-02-20T20:11:38.227+0000] {standard_task_runner.py:60} INFO - Started process 8956 to run task
+[2024-02-20T20:11:38.230+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'api_dag', 'is_api_active', 'manual__2024-02-20T20:11:36.671545+00:00', '--job-id', '11', '--raw', '--subdir', 'DAGS_FOLDER/rest_api.py', '--cfg-path', '/tmp/tmpotxbjblv']
+[2024-02-20T20:11:38.233+0000] {standard_task_runner.py:88} INFO - Job 11: Subtask is_api_active
+[2024-02-20T20:11:38.261+0000] {task_command.py:423} INFO - Running <TaskInstance: api_dag.is_api_active manual__2024-02-20T20:11:36.671545+00:00 [running]> on host 4b7631aaf19c
+[2024-02-20T20:11:38.298+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='api_dag' AIRFLOW_CTX_TASK_ID='is_api_active' AIRFLOW_CTX_EXECUTION_DATE='2024-02-20T20:11:36.671545+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-02-20T20:11:36.671545+00:00'
+[2024-02-20T20:11:38.300+0000] {http.py:130} INFO - Poking: posts/
+[2024-02-20T20:11:38.310+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/sensors/base.py", line 265, in execute
+    raise e
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/sensors/base.py", line 247, in execute
+    poke_return = self.poke(context)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/providers/http/sensors/http.py", line 148, in poke
+    raise exc
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/providers/http/sensors/http.py", line 132, in poke
+    response = hook.run(
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/providers/http/hooks/http.py", line 145, in run
+    session = self.get_conn(headers)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/providers/http/hooks/http.py", line 98, in get_conn
+    conn = self.get_connection(self.http_conn_id)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/hooks/base.py", line 82, in get_connection
+    conn = Connection.get_connection_from_secrets(conn_id)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/connection.py", line 479, in get_connection_from_secrets
+    raise AirflowNotFoundException(f"The conn_id `{conn_id}` isn't defined")
+airflow.exceptions.AirflowNotFoundException: The conn_id `api_posts` isn't defined
+[2024-02-20T20:11:38.314+0000] {taskinstance.py:1138} INFO - Marking task as FAILED. dag_id=api_dag, task_id=is_api_active, execution_date=20240220T201136, start_date=20240220T201138, end_date=20240220T201138
+[2024-02-20T20:11:38.320+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 11 for task is_api_active (The conn_id `api_posts` isn't defined; 8956)
+[2024-02-20T20:11:38.363+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-02-20T20:11:38.379+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check
