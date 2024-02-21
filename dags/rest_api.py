@@ -10,7 +10,11 @@ import logging
 def save_posts(ti) -> None:
     try:
         posts = ti.xcom_pull(task_ids=['get_posts'])
-        with open('/Users/princepriyadarshi/Downloads/Smaple pro/airflow/dags/posts.json', 'w') as f:
+        with open('/opt/airflow/dags/posts.json', 'w') as f:  
+        '''
+        you need to specifiy the abosolute path of your conatainer
+        '''
+
             json.dump(posts[0], f)
         logging.info("File saved successfully.")
     except Exception as e:
