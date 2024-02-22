@@ -5,23 +5,23 @@ from airflow.providers.http.sensors.http import HttpSensor
 from airflow.providers.http.operators.http import SimpleHttpOperator
 from airflow.operators.python import PythonOperator
 import logging
-
+from pymongo import MongoClient
 
 def save_posts(ti) -> None:
     try:
         posts = ti.xcom_pull(task_ids=['get_posts'])
-        with open('/opt/airflow/dags/posts.json', 'w') as f: 
-
-            json.dump(posts[0], f)
-        logging.info("File saved successfully.")
+        client = MongoClient('mongodb://localhost:27017/')
+        db = client['webdev_minervadb']
+        collection = db['test']
+        collection.insert_one(posts[0])
+        logging.info("Posts saved successfully to MongoDB.")
     except Exception as e:
-        logging.error(f"Failed to save file: {e}")
-
+        logging.error(f"Failed to save posts to MongoDB: {e}")
 
 
 
 with DAG (
-    dag_id='api_dag',
+    dag_id='api_dag_mongo',
     schedule_interval='@daily',
     start_date=datetime(2024,2,19,2),
     catchup=False
