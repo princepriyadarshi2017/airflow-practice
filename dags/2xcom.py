@@ -1,3 +1,21 @@
+'''
+to be able pass parameter from one function which can be accessed
+in another function we need to use something called xcoms stand for 
+called xcoms that stands for 
+
+CROSS COMMUNICATION
+
+without this we will not able to pass onject from one function to another
+reason being when we invoke these functions in the python operator
+using python callable each of these function run in there own virtual envirnoment
+the object of this python callable function is not vaialble to other function
+
+
+'''
+
+
+
+
 from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
